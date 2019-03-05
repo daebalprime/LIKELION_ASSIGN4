@@ -1,0 +1,65 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/haters/detail.css' %}?ver=1">
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <img src="{{ food.provider.logo.url }}" alt="" class="provider_image"><p class="food_name">{{food.name}}</p>
+            <img src="{{ food.photo.url }}" alt="" class="food_image">
+        </div>
+        <div class="displayflex justify-content-center">
+            <div class="btn-container">
+                <form
+                    action="{% url 'post:oe_haters_hate_toggle' food_pk=food.pk %}?next={% url 'post:oe_haters_detail' food_pk=food.pk %}"
+                    method="POST"
+                    class="form-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-default btn-post-toggle btnresize btnhate" aria-label="Like button">
+                        {% with hate_count=food.hate_foods.count %}
+                            <b>싫어요 {{ hate_count }}개</b>
+                        {% endwith %}
+                    </button>
+                </form>
+            </div>
+            <div class="btn-container">
+                <form
+                    action="{% url 'post:oe_haters_like_toggle' food_pk=food.pk %}?next={% url 'post:oe_haters_detail' food_pk=food.pk %}"
+                    method="POST"
+                    class="form-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-default btn-post-toggle btnresize btnlike" aria-label="Like button">
+                        {% with like_count=food.like_foods.count %}
+                            <b>좋아요 {{ like_count }}개</b>
+                        {% endwith %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+        {% if food.comments_food.exists %}
+        <ul class="comment-list">
+            {% for comment in food.comments_food.all %}
+            <li class="comment">
+                <span class="comment-author">{{ comment.author }}</span>
+                <span class="comment-content">{{ comment.content }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        {% endif %}
+        <form action="{% url 'post:oe_food_comment_create' food_pk=food.pk %}?next={% url 'post:oe_haters_detail' food_pk=food.pk %}" method="POST" class="comment-form">
+            {% csrf_token %}
+            {{ comment_form.content }}
+            <input type="submit" value="게시" >
+        </form>
+
+
+    </div>
+{% endblock %}

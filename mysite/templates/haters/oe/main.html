@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mathfilters %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/haters/style.css' %}?ver=3">
+{% endblock %}
+{% block navbar %}
+
+{% endblock%}
+<!--
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'member:signup' %}">Signup</a>
+</li> -->
+{% block content %}
+    <div class="container">
+		<div class="row">
+    {% for food in foods %}
+	  <a href="{% url 'post:oe_haters_detail' food_pk=food.pk %}">
+		<div class="card col-6 col-lg-3">
+		  <img class="card-img-top" src="{{ food.photo.url }}" alt="Card image cap">
+		  <div class="card-body">
+			<img src="{{ food.provider.logo.url }}" alt="" class="list_provider_image">
+
+			{% if food.score >= 75 %}
+			<img src="{% static '52score.png' %}" class="oescore"alt=""><img src="{% static '52score.png' %}" class="oescore"alt=""><img src="{% static '52score.png' %}" class="oescore"alt="">
+			{% elif food.score >= 50 %}
+		   	<img src="{% static '52score.png' %}" class="oescore"alt=""><img src="{% static '52score.png' %}" class="oescore"alt="">
+		    {% elif food.score >= 25 %}
+		    <img src="{% static '52score.png' %}" class="oescore"alt="">
+		    {% else %}
+		    {% endif %}
+
+			<h5 class="card-title">{{food.name}}</h5>
+			  <p class="card-text">{% if not food.price %}
+				가격 정보없음
+			{% else %}
+				{{food.price}}원
+			{% endif %}
+			</p>
+		    <a href="#" class=""></a>
+		  </div>
+		</div>
+	  </a>
+	{% if forloop.counter|divisibleby:3 %}
+	</div>	<div class="row">
+  	{% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+			<!-- <img src="{{ post.photo.url }}" alt="" class="post-image"> -->

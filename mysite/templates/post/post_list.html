@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Post List
+{% endblock %}
+
+{% block content %}
+
+	{% for post in posts %}
+	<div class="panel panel-default post-item">
+		<div class="post-{{post.pk}}">
+			{% include 'include/post.html' with post_type='list' %}
+		</div>
+		<a href="{% url 'post:post_detail' post_pk=post.pk %}">
+			<div>디테일 보기</div>
+		</a>
+	</div>
+	{% endfor %}
+{% endblock %}
+
+			<!-- <img src="{{ post.photo.url }}" alt="" class="post-image"> -->

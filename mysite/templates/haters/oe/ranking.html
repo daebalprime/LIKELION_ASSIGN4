@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/haters/style.css' %}">
+{% endblock %}
+{% block title %}
+오이헤이러스
+{% endblock %}
+
+
+{% block content %}
+    {% for provider in providers %}
+        <img src="{{ provider.logo.url }}" alt="" class="provider_image">
+        <br>
+        {{forloop.counter |add:page_num}}{{provider.name}} {{provider.score}}\
+    {% endfor %}
+{% endblock %}

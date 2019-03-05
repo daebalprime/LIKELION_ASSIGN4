@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Post List
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'post:post_create' %}" method="POST" class="post_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ post_form.text }}
+        {{ post_form.title }}
+        {{ post_form.photo }}
+        <input type="submit" value="게시">
+    </form>
+
+{% endblock %}

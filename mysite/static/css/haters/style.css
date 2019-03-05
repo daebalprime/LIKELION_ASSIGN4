@@ -1,0 +1,29 @@
+*{
+
+}
+
+.list_provider_image{
+    width:30%;
+    height:auto;
+
+}
+
+.navbar_provider_image{
+    height:2em;
+    width:auto;
+}
+
+.vertical-align{
+    padding-top:auto;
+    padding-bottom:auto;
+}
+
+.btn-location{
+    width:20%;
+    margin-left: 70%;
+}
+
+.oescore{
+    width:20%;
+    height:auto;
+}
